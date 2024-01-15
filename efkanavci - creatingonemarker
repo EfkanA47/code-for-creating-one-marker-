@@ -1,0 +1,32 @@
+npm install @types/leaflet
+import { Component, OnInit } from '@angular/core';
+import * as L from 'leaflet';
+
+// Import leaflet marker workaround
+import 'leaflet/dist/leaflet.marker.js';
+
+@Component({
+  selector: 'app-map',
+  template: '<div id="map"></div>',
+  styleUrls: ['./map.component.css'],
+})
+export class MapComponent implements OnInit {
+  ngOnInit(): void {
+    this.initMap();
+  }
+
+  private initMap(): void {
+    const map = L.map('map').setView([latitude, longitude], zoom);
+
+    // Create a marker using the workaround
+    const marker: any = L.marker([latitude, longitude], {
+      icon: L.icon({
+        iconSize: [25, 25],
+        iconAnchor: [13, 25],
+        iconUrl: 'the icon you get from the service',
+      }),
+    });
+
+    marker.addTo(map);
+  }
+}
